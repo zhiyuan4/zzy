@@ -1,0 +1,128 @@
+---
+title: "chapter 5、6"
+output:
+  html_document:
+    df_print: paged
+---
+
+## question 5.1
+```{r}
+rm(list = ls())
+
+library(mosaicData)
+library(mosaic)
+library(tidyverse)
+library(dcData)
+data("CPS85")
+ggplot(data = CPS85, aes(x = sex, y = wage)) + 
+  geom_boxplot()  + 
+  aes(colour = married) + 
+  facet_wrap(~race, ncol = 4) + 
+  theme(legend.position = "right") + 
+  labs(title = "")
+
+CPS85 %>%
+  ggplot(aes(x = sex, y = wage)) + 
+  geom_boxplot()  + 
+  aes(colour = married) + 
+  facet_wrap(~race, ncol = 4) + 
+  theme(legend.position = "right") + 
+  labs(title = "")
+
+```
+
+###question5.2
+```{r}
+data("NCHS")
+ggplot( data = NCHS, aes(x = bmi)) + 
+  geom_density(adjust = 0.83) + 
+  aes(colour = sex) + 
+  facet_wrap(~pregnant, ncol = 4) + 
+  labs(title = "") + 
+  theme(legend.position = "right") 
+ggplot(data = NCHS, aes(x = bmi)) + 
+  geom_density(adjust = 1, alpha = 0.4, color = NA) + 
+  aes(color = sex, fill = sex) + 
+  facet_wrap( ~ pregnant, ncol = 4) + 
+  labs(title = "") +
+  theme(legend.position = "right") + 
+  theme_bw()
+
+```
+###question 5.3
+```{r}
+ggplot(data = CPS85, aes(x = exper, y = wage)) +
+  geom_point() + 
+  aes(colour = married) +
+  facet_wrap( ~ sector, ncol = 4) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_bw()
+```
+
+chapter 6
+##6.1
+“1433B”, “1433E”, “1433G”, “1433Z”
+Yes; all x-axes represent the different cell conditions and y-axes represent the amount of substance.
+*, vertical bars, red line segments
+
+##6.2
+Guides: y-axis tick marks, x-axis tick marks, color, fill, and sections of the x-axis
+concentration value corresponds to the y-position, genes correspond to x-position, molecules correspond to color, flux correspond to fill, target corresponds to placement on x-axis
+Graphical attributes: color, fill, location
+molecule corresponds to color, flux corresponds to fill, concentration, target, and gene correspond to location of the dot
+gene (x-axis) and concentration (y-axis)
+gene and target
+
+
+##6.3
+Glyph 1: vertical bar with labeled dot, corresponds to ‘protein’ and its low/center/high properties
+Glyph 2: stars, correspond to ‘signif’
+Horizontal: defined by protein
+Vertical: defined by low/center/high
+Yes
+Guides: y-axis tick marks, glyph labels, blue label saying “polarity proteins”
+
+
+##6.4
+Rectangle defined by time of day and different transportation routes
+Solid lines, dashed lines, and dotted lines
+Shape/Style: Solid lines are time on public transport, dashed lines are time between transfers, dotted lines are (most likely) walking time
+Position: Time and route
+Time of day, total travel time, type of transportation
+
+##6.5
+State (vertical axis) and Polling Organization (horizontal axis).
+
+##6.6
+Glyph: Rectangle. Graphical attribute: color and text.
+
+##6.7
+NYT poll probability for the Democratic candidate
+
+##6.8
+Vertical scale: name of state. e: Color: color band
+
+##6.9
+```{r}
+Small <-
+  NCHS %>%
+  sample_n(size = 5000)
+gf_point(weight ~ bmi, data = Small, color = ~ smoker) %>% 
+  gf_theme(legend.position = "right") %>% 
+  gf_labs(title = "", caption = "")
+ggplot(Small) +
+  aes(x = bmi, y = weight, colour = smoker) +
+  geom_point(shape = "circle", size = 1.5) +
+  scale_color_hue(direction = 1) +
+  theme_minimal()
+Small %>%
+  ggplot(aes(x = bmi, y = weight)) + 
+  geom_point() + 
+  aes(colour = smoker) +
+  theme_bw()
+```
+
+##6.10
+Inner layer: Classification tree structure Outer layer: Colored bands
+Inner scale: Division of space corresponding to the grouping of organisms Outer scale: Color corresponding to the type of molecule
